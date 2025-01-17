@@ -74,10 +74,10 @@ app.get("/api/reservations", async (req, res) => {
 // POST /api/customers/:id/reservations
 app.post("/api/customers/:id/reservations", async (req, res) => {
   const { id: customerId } = req.params;
-  const { restaurant_id, date, party_count } = req.body;
+  const { restaurant_id, date, party_count, time } = req.body;
 
   try {
-    if (!restaurant_id || !date || !party_count) {
+    if (!restaurant_id || !date || !party_count || !time) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
@@ -85,6 +85,7 @@ app.post("/api/customers/:id/reservations", async (req, res) => {
       customer_id: customerId,
       restaurant_id,
       date,
+      time,
     });
     res.status(201).json(newReservation);
   } catch (error) {
